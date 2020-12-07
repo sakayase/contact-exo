@@ -55,8 +55,6 @@ if ($_POST) {
     
 }
 
-dump($data['message']);
-
 // affichage du rendu d'un template
 echo $twig->render('contact.html.twig', [
     // transmission de données au template

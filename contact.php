@@ -2,6 +2,7 @@
 
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
+use Twig\Extension\DebugExtension;
 
 // activation du système d'autoloading de Composer
 require __DIR__.'/vendor/autoload.php';
@@ -16,6 +17,9 @@ $twig = new Environment($loader, [
         // activation du mode de variables strictes
         'strict_variables' => true,
 ]);
+
+// chargement de l'extension DebugExtension
+$twig->addExtension(new DebugExtension());
 
 // traitement des données
 dump($_POST);

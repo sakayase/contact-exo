@@ -31,7 +31,7 @@
             </div>
             <div class="form-group">
                 <label for="exampleFormControlTextarea1">Message</label>
-                <textarea class="form-control" id="message" name="message" rows="3" {% if data.message is defined %} value={{data.message}} {% endif %}></textarea>
+                <textarea class="form-control" id="message" name="message" rows="3">{% if data.message is defined %}{{data.message}}{% endif %}</textarea>
                 {% if errors.message is defined %}
                     <div class="alert alert-danger">    
                         {{ errors.message }}

@@ -21,8 +21,6 @@ $twig = new Environment($loader, [
 dump($_POST);
 
 $data = [];
-dump($data);
-
 $errors = [];
 
 if ($_POST) {
@@ -51,19 +49,14 @@ if ($_POST) {
     } elseif (preg_match('/<[^>]*>/', $_POST['message'])) {
         $errors['message'] = 'Les balises html et les caractères \'<\' et \'>\' sont interdites';
     }
-
-    if (empty($errors['email'])) {  
-        $data['email'] = $_POST['email'];
-    }
-    if (empty($errors['object'])) {  
-        $data['object'] = $_POST['object'];
-    }
-    if (empty($errors['message'])) {  
-        $data['message'] = $_POST['message'];
-    }
+  
+    $data['email'] = $_POST['email'];
+    $data['object'] = $_POST['object'];
+    $data['message'] = $_POST['message'];
+    
 }
 
-echo empty($errors);
+dump($data['message']);
 
 // affichage du rendu d'un template
 echo $twig->render('contact.html.twig', [

@@ -28,11 +28,13 @@ if ($_POST) {
     
     if (empty($_POST['email'])){
         $errors['email'] = 'Veuillez renseigner un email';
+    } elseif (strlen($_POST['email']) >= 190){
+        $errors['email'] = 'L\'email est trop long, merci de le raccourcir (max 190 caractères)';    
     } elseif (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) == false) {
         $errors['email'] = 'Veuillez renseigner un email valide';
     } elseif (preg_match('/<[^>]*>/', $_POST['email'])) {
         $errors['email'] = 'Les balises html et les caractères \'<\' et \'>\' sont interdites';
-    }
+    } 
 
     if (empty($_POST['object'])){
         $errors['object'] = 'Veuillez renseigner un object';

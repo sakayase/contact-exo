@@ -13,7 +13,15 @@
         <form action="" method="post" novalidate>
             <div class="form-group">
                 <label>Email address</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" 
+                <input type="email" class="
+                {% if errors.email is not defined %}
+                    {{"form-control is-valid"}}
+                {% elseif errors.email is defined%}
+                    {{"form-control is-invalid"}}
+                {% else %}
+                    {{"form-control"}}
+                {% endif %}" 
+                id="email" name="email" placeholder="name@example.com" 
                 {% if data.email is defined %} 
                     value={{data.email}} 
                 {% endif %}>
@@ -25,7 +33,15 @@
             </div>
             <div class="form-group">
                 <label>Object</label>
-                <input type="text" class="form-control" id="object" name="object" placeholder="Object" 
+                <input type="text" class="
+                {% if errors.object is not defined %}
+                    {{"form-control is-valid"}}
+                {% elseif errors.object is defined%}
+                    {{"form-control is-invalid"}}
+                {% else %}
+                    {{"form-control"}}
+                {% endif %}" 
+                id="object" name="object" placeholder="Object" 
                 {% if data.object is defined %} 
                     value={{data.object}} 
                 {% endif %}>
@@ -37,7 +53,15 @@
             </div>
             <div class="form-group">
                 <label>Message</label>
-                <textarea class="form-control" id="message" name="message" rows="3">{% if data.message is defined %}{{data.message}}{% endif %}</textarea>
+                <textarea class="
+                {% if errors.message is not defined %}
+                    {{"form-control is-valid"}}
+                {% elseif errors.message is defined%}
+                    {{"form-control is-invalid"}}
+                {% else %}
+                    {{"form-control"}}
+                {% endif %}" 
+                id="message" name="message" rows="3">{% if data.message is defined %}{{data.message}}{% endif %}</textarea>
                 {% if errors.message is defined %}
                     <div class="alert alert-danger">    
                         {{ errors.message }}    

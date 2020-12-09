@@ -72,6 +72,7 @@ echo $twig->render('contact.html.twig', [
     // transmission de données au template
     'errors' => $errors,
     'data' => $data,
+    exit();
 ]);
 
 

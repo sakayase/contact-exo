@@ -22,12 +22,20 @@ $twig = new Environment($loader, [
 $twig->addExtension(new DebugExtension());
 
 // traitement des données
-dump($_POST);
 
-$data = [];
+$data = [
+    'email' => '',
+    'object' => '',
+    'message' => '',
+];
 $errors = [];
 
 if ($_POST) {
+    foreach ($data as $key => $value) {
+        if (isset($_POST[$key])) {
+            $data[$key] = $_POST[$key];
+        }
+    }
     
     if (empty($_POST['email'])){
         $errors['email'] = 'Veuillez renseigner un email';
@@ -52,11 +60,11 @@ if ($_POST) {
     } elseif (preg_match('/<[^>]*>/', $_POST['message'])) {
         $errors['message'] = 'Les balises html et les caractères \'<\' et \'>\' sont interdites';
     }
-  
+/*  Pas securisé !! (DDOS)
     $data['email'] = $_POST['email'];
     $data['object'] = $_POST['object'];
     $data['message'] = $_POST['message'];
-    
+*/    
 }
 
 // affichage du rendu d'un template

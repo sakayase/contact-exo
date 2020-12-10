@@ -5,10 +5,10 @@ use Twig\Loader\FilesystemLoader;
 use Twig\Extension\DebugExtension;
 
 // activation du système d'autoloading de Composer
-require __DIR__.'/vendor/autoload.php';
+require __DIR__.'/../vendor/autoload.php';
 
 // instanciation du chargeur de templates
-$loader = new FilesystemLoader(__DIR__.'/templates');
+$loader = new FilesystemLoader(__DIR__.'/../templates');
 
 // instanciation du moteur de template
 $twig = new Environment($loader, [

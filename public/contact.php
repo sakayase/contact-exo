@@ -20,6 +20,7 @@ $twig = new Environment($loader, [
 
 // chargement de l'extension DebugExtension
 $twig->addExtension(new DebugExtension());
+session_start();
 
 // traitement des données
 
@@ -37,34 +38,43 @@ if ($_POST) {
         }
     }
     
-    if (empty($_POST['email'])){
+    if (empty($data['email'])){
         $errors['email'] = 'Veuillez renseigner un email';
-    } elseif (strlen($_POST['email']) >= 190){
+    } elseif (strlen($data['email']) >= 190){
         $errors['email'] = 'L\'email est trop long, merci de le raccourcir (max 190 caractères)';    
-    } elseif (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) == false) {
+    } elseif (filter_var($data['email'], FILTER_VALIDATE_EMAIL) == false) {
         $errors['email'] = 'Veuillez renseigner un email valide';
     }
 
-    if (empty($_POST['object'])){
+    if (empty($data['object'])){
         $errors['object'] = 'Veuillez renseigner un object';
-    } elseif (strlen($_POST['object']) >= 190){
+    } elseif (strlen($data['object']) >= 190){
         $errors['object'] = 'L\'objet du message est trop long, merci de le raccourcir (max 190 caractères)';
-    } elseif (preg_match('/<[^>]*>/', $_POST['email'])) {
+    } elseif (preg_match('/<[^>]*>/', $data['email'])) {
         $errors['email'] = 'Les balises html et les caractères \'<\' et \'>\' sont interdites';
     }
 
-    if (empty($_POST['message'])){
+    if (empty($data['message'])){
         $errors['message'] = 'Veuillez renseigner un message';
-    } elseif (strlen($_POST['message']) >= 1000){
+    } elseif (strlen($data['message']) >= 1000){
         $errors['message'] = 'Le message est trop long, merci de le raccourcir (max 1000 caractères)';
-    } elseif (preg_match('/<[^>]*>/', $_POST['message'])) {
+    } elseif (preg_match('/<[^>]*>/', $data['message'])) {
         $errors['message'] = 'Les balises html et les caractères \'<\' et \'>\' sont interdites';
     }
 /*  Pas securisé !! (DDOS)
     $data['email'] = $_POST['email'];
     $data['object'] = $_POST['object'];
     $data['message'] = $_POST['message'];
-*/    
+*/
+    if (empty($errors)){
+        $_SESSION['email_form'] = $data['email'];
+        $_SESSION['object'] = $data['object'];
+        $_SESSION['message'] = $data['message'];
+
+        $url = 'send-mail.php';
+        header("location: {$url}", true, 301);
+        exit();
+    }
 }
 
 // affichage du rendu d'un template
